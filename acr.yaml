@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: afzhelloworld-deployment
+  labels:
+    app: afzhelloworld-deployment
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: afzhelloworld
+  template:
+    metadata:
+      labels:
+        app: afzhelloworld
+    spec:
+      containers:
+      - name: afzhelloworld
+        image: afzreg.azurecr.io/hello-world:latest
+        ports:
+        - containerPort: 80  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: afzhelloworld
+spec:  
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: afzhelloworld
+
+
+
